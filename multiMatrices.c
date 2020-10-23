@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <pthread.h>
 #include "matriz.h"
 
 
@@ -51,18 +50,6 @@ void validarArgumentos(int argc, char *argv[]){
 	}
 }
 
-
-void * hiloSaluda(void * auxFilaInicial)
-{
-	int filaInicial = (int) auxFilaInicial;
-	imprimirMatriz(matrizA);
-	/* int numFilas = filasPorHilo;
-	if(filaInicial == matrizA -> fils * numHilos)
-		numFilas =	matrizA -> fils % numHilos;
-	multiConHilos(matrizA, matrizB, matrizR, filaInicial, numFilas); */
-	pthread_exit(NULL);
-}
-
 int main(int argc, char * argv[])
 {
 	validarArgumentos(argc, argv);
@@ -70,27 +57,13 @@ int main(int argc, char * argv[])
     matrices[0] = generarMatrizAleatoria(atoi(argv[1]), atoi(argv[2]));
 	matrices[1] = generarMatrizAleatoria(atoi(argv[3]), atoi(argv[4]));
 	matrices[2] = generarMatrizVacia(atoi(argv[1]), atoi(argv[4]));
-	// int numHilos = atoi(argv[5]);
-	// pthread_t * arrHilos = (pthread_t *)malloc(sizeof(pthread_t) * numHilos);
-	// int * idHilos;
-	// for(int i = 0; i < numHilos; i++)
-	// 	idHilos[i] = i;
 	
-	// int filasPorHilo = matrices[0] -> fils / numHilos;
-	// for(int i = 0; i < numHilos; i++){
-	// 	pthread_create(&arrHilos[i], NULL, hiloSaluda, (void *) /*Parametro*/);
-	// }
+	multiSinHilos(matrices);
 
-	// for(int i = 0; i < numHilos; i++){
-	// 	pthread_join(arrHilos[i], NULL);
-	// }
 	imprimirMatriz(matrices[0]);
 	imprimirMatriz(matrices[1]);
 	imprimirMatriz(matrices[2]);
 
-	// free(arrHilos);
-	liberarMatriz(matrices[0]);
-	liberarMatriz(matrices[1]);
-	liberarMatriz(matrices[2]);
+	liberarMatrices(matrices);
 	return 0;
 }
