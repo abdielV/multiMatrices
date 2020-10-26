@@ -8,6 +8,15 @@ typedef struct{
     int cols;
 } Matriz;
 
+Matriz * generarMatrizAleatoria( int, int);
+Matriz * generarMatrizVacia( int, int);
+void imprimirMatriz(Matriz *);
+void liberarMatriz(Matriz *);
+void liberarMatrices(Matriz **);
+void multiplicacion(Matriz **);
+Matriz * generarMatrizPruebaA();
+Matriz * generarMatrizPruebaB();
+
 Matriz * generarMatrizAleatoria( int m, int n){
     int ** auxMatriz = (int **)malloc(sizeof(int*) * m);
     for(int i = 0; i < m; i++)
@@ -16,7 +25,7 @@ Matriz * generarMatrizAleatoria( int m, int n){
     srand(time(NULL));
     for( int i = 0; i < m; i++)
         for( int j = 0; j < n; j++)
-            auxMatriz[i][j] = rand() % 6;
+            auxMatriz[i][j] = rand() % 2;
     
     Matriz * matriz = (Matriz *)malloc(sizeof(matriz));
     matriz -> val = auxMatriz;
@@ -61,13 +70,59 @@ void liberarMatrices(Matriz **matrices){
     liberarMatriz(matrices[2]);
 }
 
-void multiSinHilos(Matriz ** matrices){
-    for(int i = 0; i < matrices[0] -> fils; i++){
-        for(int j = 0; j < matrices[1] -> fils; j++){
-            for(int k = 0; k < matrices[2] ->cols; k++){
+void multiplicacion(Matriz ** matrices){
+    for(int i = 0; i < matrices[0] -> fils; i++)
+        for(int j = 0; j < matrices[1] -> fils; j++)
+            for(int k = 0; k < matrices[2] ->cols; k++)
                 matrices[2] -> val[i][k] += matrices[0] -> val[i][j] * matrices[1]->val[j][k];
-                //printf("R[%d][%d](%d) += A[%d][%d](%d) + B[%d][%d](%d)\n", i, k, matrizR -> val[i][k], i, j, matrizA -> val[i][j], j, k, matrizB->val[j][k]);
-            }
-        }
-    }
+}
+
+Matriz * generarMatrizPruebaA()
+{
+    int m = 3, n = 4;
+    int ** auxMatriz = (int **)malloc(sizeof(int*) * m);
+    for(int i = 0; i < m; i++)
+        auxMatriz[i] = (int *)malloc(sizeof(int) * n);
+
+    auxMatriz[0][0] = 1;
+    auxMatriz[0][1] = 0;
+    auxMatriz[0][2] = 1;
+    auxMatriz[0][3] = 1;
+    auxMatriz[1][0] = 0;
+    auxMatriz[1][1] = 1;
+    auxMatriz[1][2] = 0;
+    auxMatriz[1][3] = 0;
+    auxMatriz[2][0] = 0;
+    auxMatriz[2][1] = 1;
+    auxMatriz[2][2] = 0;
+    auxMatriz[2][3] = 1;
+    
+    Matriz * matriz = (Matriz *)malloc(sizeof(matriz));
+    matriz -> val = auxMatriz;
+    matriz -> fils = m;
+    matriz -> cols = n;
+    return matriz;
+}
+
+Matriz * generarMatrizPruebaB()
+{
+    int m = 4, n = 2;
+    int ** auxMatriz = (int **)malloc(sizeof(int*) * m);
+    for(int i = 0; i < m; i++)
+        auxMatriz[i] = (int *)malloc(sizeof(int) * n);
+
+    auxMatriz[0][0] = 1;
+    auxMatriz[1][0] = 0;
+    auxMatriz[2][0] = 0;
+    auxMatriz[3][0] = 1;
+    auxMatriz[0][1] = 0;
+    auxMatriz[1][1] = 1;
+    auxMatriz[2][1] = 1;
+    auxMatriz[3][1] = 1;
+    
+    Matriz * matriz = (Matriz *)malloc(sizeof(matriz));
+    matriz -> val = auxMatriz;
+    matriz -> fils = m;
+    matriz -> cols = n;
+    return matriz;
 }
