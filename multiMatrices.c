@@ -13,12 +13,9 @@ int main(int argc, char * argv[])
 	validarArgumentos(argc, argv);
 	matrices = (Matriz **) malloc(sizeof(Matriz *) * 3);
     matrices[0] = generarMatrizAleatoria(atoi(argv[1]), atoi(argv[2]));
-	// matrices[0] = generarMatrizPruebaA();
 	matrices[1] = generarMatrizAleatoria(atoi(argv[3]), atoi(argv[4]));
-	// matrices[1] = generarMatrizPruebaB();
 	matrices[2] = generarMatrizVacia(atoi(argv[1]), atoi(argv[4]));
 	
-	printf("Bandera 1\n");fflush(stdout);
 	numHilos = atoi(argv[5]);
 	pthread_t * arrHilos = (pthread_t *)malloc(sizeof(pthread_t) * numHilos);
 	int * idHilos = (int *)malloc(sizeof(int) * numHilos);
@@ -26,21 +23,17 @@ int main(int argc, char * argv[])
 		idHilos[i] = i;
 	filasPorHilo = matrices[0] -> fils / numHilos;
 
-	printf("Bandera 2\n");fflush(stdout);
 	for(int i = 0; i < numHilos; i++)
 		pthread_create(&arrHilos[i], NULL, hiloSaluda, (void *) &idHilos[i]);
 
-	printf("Bandera 3\n");fflush(stdout);
 	for(int i = 0; i < numHilos; i++){
 		pthread_join(arrHilos[i], NULL);
 	}
 
-	printf("Bandera 4\n");fflush(stdout);
 	imprimirMatriz(matrices[0]);
 	imprimirMatriz(matrices[1]);
 	imprimirMatriz(matrices[2]);
 
-	printf("Bandera 5\n");fflush(stdout);
 	liberarMatrices(matrices);
 	return 0;
 }

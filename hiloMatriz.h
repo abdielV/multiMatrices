@@ -30,15 +30,5 @@ void multiConHilos(int idHilo){
             for(int k = 0; k < matrices[2] ->cols; k++)
                 matrices[2] -> val[i][k] += matrices[0] -> val[i][j] * matrices[1]->val[j][k];
 
-    //Por fines de debugeo
-    /* for(int i=filaInicial; i<=filaFinal; i++){
-        printf("(%d)-> ", idHilo);
-        for(int j = 0; j < matrices[2]->cols;j++)
-            printf("%d ", matrices[2]->val[i][j]);
-        printf("\n");
-        fflush(stdout);
-    }
-    fflush(stdout); */
-
     return ;
 }

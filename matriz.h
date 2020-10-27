@@ -14,8 +14,6 @@ void imprimirMatriz(Matriz *);
 void liberarMatriz(Matriz *);
 void liberarMatrices(Matriz **);
 void multiplicacion(Matriz **);
-Matriz * generarMatrizPruebaA();
-Matriz * generarMatrizPruebaB();
 
 Matriz * generarMatrizAleatoria( int m, int n){
     int ** auxMatriz = (int **)malloc(sizeof(int*) * m);
